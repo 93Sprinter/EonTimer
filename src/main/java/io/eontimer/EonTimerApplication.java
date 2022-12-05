@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 
 import io.eontimer.config.AppProperties;
 import io.eontimer.model.ApplicationModel;
+import io.eontimer.util.TaskUtil;
 import javafx.application.Application;
 
 @SpringBootApplication
@@ -28,11 +29,13 @@ public class EonTimerApplication {
 	private ApplicationModel settings;
 
 	public static void main(String[] args) {
+		TaskUtil.init();
 		Application.launch(JavaFxApplication.class, args);
 	}
 
 	@PreDestroy
 	private void destroy() throws IOException {
+		TaskUtil.shutdown();
 		// persist settings
 		final String json = gson.toJson(settings);
 		Files.write(Paths.get(properties.getName() + ".json"), json.getBytes());

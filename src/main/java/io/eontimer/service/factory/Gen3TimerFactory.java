@@ -1,6 +1,5 @@
 package io.eontimer.service.factory;
 
-import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class Gen3TimerFactory implements TimerFactory {
 	}
 
 	@Override
-	public List<Duration> getStages() {
+	public List<Long> getStages() {
 		switch (gen3TimerModel.getMode()) {
 		case STANDARD:
 			return fixedFrameTimerFactory.createStages(gen3TimerModel.getPreTimer(), gen3TimerModel.getTargetFrame(), gen3TimerModel.getCalibration());

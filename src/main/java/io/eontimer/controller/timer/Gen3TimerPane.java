@@ -77,7 +77,7 @@ public class Gen3TimerPane implements Initializable {
 
 		preTimerField.setValueFactory(new LongValueFactory(0));
 		BidirectionalBinding.bindNumber(preTimerField.getValueFactory().valueProperty(), model.getPreTimerProperty());
-		calibrationField.getParent().disableProperty().bind(timerState.getRunningProperty());
+		preTimerField.getParent().disableProperty().bind(timerState.getRunningProperty());
 		SpinnerUtil.setOnFocusLost(preTimerField, SpinnerUtil.commitValue(preTimerField));
 
 		targetFrameField.setValueFactory(new LongValueFactory(0));
@@ -92,7 +92,7 @@ public class Gen3TimerPane implements Initializable {
 		setTargetFrameBtn.setOnAction((event) -> {
 			if (timerState.isRunning()) {
 				final long duration = calibrationService.toMillis(model.getTargetFrame());
-				timerRunnerService.getStages().set(1, TimeUtil.milliseconds(duration + model.getCalibration()));
+				timerRunnerService.getStages().set(1, duration + model.getCalibration());
 				timerState.setTotalTime(TimeUtil.sum(timerRunnerService.getStages()));
 				isPrimedProperty.set(false);
 			}

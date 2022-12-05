@@ -2,7 +2,9 @@ package io.eontimer.model.resource;
 
 public enum ImageResource implements Resource {
 
-	DefaultBackgroundImage("default_background_image.png");
+	DefaultBackgroundImage("default_background_image.png"),
+
+	APP_ICON("icon.png");
 
 	private String fileName;
 

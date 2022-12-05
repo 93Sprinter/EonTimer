@@ -1,6 +1,5 @@
 package io.eontimer.service.factory.timer;
 
-import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,7 +10,7 @@ import io.eontimer.util.TimeUtil;
 @Service
 public class SecondTimerFactory {
 
-	public List<Duration> createStages(long targetSecond, long calibration) {
+	public List<Long> createStages(long targetSecond, long calibration) {
 		return Arrays.asList(stage1(targetSecond, calibration));
 	}
 
@@ -25,8 +24,8 @@ public class SecondTimerFactory {
 		return 0L;
 	}
 
-	private Duration stage1(long targetSecond, long calibration) {
-		return TimeUtil.milliseconds(TimeUtil.toMinimumLength(targetSecond * 1000 + calibration + 200));
+	private long stage1(long targetSecond, long calibration) {
+		return TimeUtil.toMinimumLength(targetSecond * 1000 + calibration + 200);
 	}
 
 }

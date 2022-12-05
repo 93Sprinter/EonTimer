@@ -1,7 +1,6 @@
 package io.eontimer.controller;
 
 import java.net.URL;
-import java.time.Duration;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,20 +43,20 @@ public class TimerDisplayPane implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		ReactorFxUtil.asFlux(timerState.getCurrentStageProperty())
 				.subscribeOn(JavaFxScheduler.platform())
-				.map(it -> formatTime(it))
+				.map(it -> formatTime(it.longValue()))
 				.subscribe(it -> currentStageLbl.setText(it));
 		ReactorFxUtil.asFlux(timerState.getCurrentRemainingProperty())
 				.subscribeOn(JavaFxScheduler.platform())
-				.map(it -> formatTime(it))
+				.map(it -> formatTime(it.longValue()))
 				.subscribe(it -> currentStageLbl.setText(it));
 		ReactorFxUtil.anyChangesOf(timerState.getTotalTimeProperty(), timerState.getTotalElapsedProperty())
 				.subscribeOn(JavaFxScheduler.platform())
 				.subscribe(it -> {
-					minutesBeforeTargetLbl.setText(formatMinutesBeforeTarget(it.getT1(), it.getT2()));
+					minutesBeforeTargetLbl.setText(formatMinutesBeforeTarget(it.getT1().longValue(), it.getT2().longValue()));
 				});
 		ReactorFxUtil.asFlux(timerState.getNextStageProperty())
 				.subscribeOn(JavaFxScheduler.platform())
-				.map(it -> formatTime(it))
+				.map(it -> formatTime(it.longValue()))
 				.subscribe(it -> nextStageLbl.setText(it));
 		ReactorFxUtil.asFlux(timerActionService.getActiveProperty())
 				.subscribe(it -> JavaFxUtil.setActive(currentStageLbl, it));
@@ -68,18 +67,18 @@ public class TimerDisplayPane implements Initializable {
 				.subscribe(it -> currentStageLbl.setStyle(it));
 	}
 
-	private String formatMinutesBeforeTarget(Duration totalTime, Duration totalElapsed) {
+	private String formatMinutesBeforeTarget(long totalTime, long totalElapsed) {
 		if (TimeUtil.isIndefinite(totalTime)) {
 			return "?";
 		}
-		return totalTime.minus(totalElapsed).toString();
+		return "" + ((totalTime - totalElapsed) / 1000 / 60);
 	}
 
-	private String formatTime(Duration duration) {
+	private String formatTime(long duration) {
 		if (TimeUtil.isIndefinite(duration)) {
 			return "?:??";
 		}
-		return String.format("%d:%02d", duration.toSeconds(), duration.toMillis() / 10 % 100);
+		return String.format("%d:%02d", duration / 1000, duration / 10 % 100);
 
 	}
 }

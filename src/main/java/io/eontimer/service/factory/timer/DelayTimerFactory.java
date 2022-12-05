@@ -1,6 +1,5 @@
 package io.eontimer.service.factory.timer;
 
-import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class DelayTimerFactory {
 	@Autowired
 	private CalibrationService calibrationService;
 
-	public List<Duration> createStages(long targetSecond, long targetDelay, long calibration) {
+	public List<Long> createStages(long targetSecond, long targetDelay, long calibration) {
 		return Arrays.asList(stage1(targetSecond, targetDelay, calibration), stage2(targetDelay, calibration));
 	}
 
@@ -32,12 +31,12 @@ public class DelayTimerFactory {
 		return ((long) TimerConstants.UPDATE_FACTOR) * delta;
 	}
 
-	private Duration stage1(long targetSecond, long targetDelay, long calibration) {
-		return TimeUtil.milliseconds(TimeUtil.toMinimumLength(secondTimer.createStages(targetSecond, calibration).get(0).toMillis() - calibrationService.toMillis(targetDelay)));
+	private long stage1(long targetSecond, long targetDelay, long calibration) {
+		return TimeUtil.toMinimumLength(secondTimer.createStages(targetSecond, calibration).get(0) - calibrationService.toMillis(targetDelay));
 	}
 
-	private Duration stage2(long targetDelay, long calibration) {
-		return TimeUtil.milliseconds(calibrationService.toMillis(targetDelay) - calibration);
+	private long stage2(long targetDelay, long calibration) {
+		return calibrationService.toMillis(targetDelay) - calibration;
 	}
 
 }

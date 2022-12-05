@@ -1,6 +1,5 @@
 package io.eontimer.service.factory;
 
-import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,10 +22,9 @@ public class CustomTimerFactory implements TimerFactory {
 	private CustomTimerModel customTimerModel;
 
 	@Override
-	public List<Duration> getStages() {
+	public List<Long> getStages() {
 		return customTimerModel.getStages()
 				.stream()
-				.map(it -> Duration.ofMillis(it.getLength()))
 				.collect(Collectors.toList());
 	}
 

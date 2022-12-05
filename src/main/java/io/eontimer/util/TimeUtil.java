@@ -1,7 +1,6 @@
 package io.eontimer.util;
 
 import java.time.Duration;
-import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,26 +8,22 @@ import io.eontimer.model.settings.TimerSettingsConstants;
 
 public class TimeUtil {
 
-	public static Duration INDEFINITE = Duration.between(Instant.MIN, Instant.MAX);
+	public static long INDEFINITE = Long.MAX_VALUE;
 
-	public static Duration milliseconds(long value) {
-		return Duration.ofMillis(value);
+	public static boolean isIndefinite(long value) {
+		return Long.MAX_VALUE == value;
 	}
 
-	public static boolean isIndefinite(Duration value) {
-		return INDEFINITE.equals(value);
-	}
-
-	public static Duration getStage(List<Duration> stages, int index) {
+	public static Long getStage(List<Long> stages, int index) {
 		if (index < stages.size()) {
 			return stages.get(index);
 		}
-		return Duration.ZERO;
+		return 0L;
 	}
 
-	public static Duration sum(List<Duration> values) {
-		if (values.contains(INDEFINITE)) {
-			return Duration.ofMillis(values.stream().collect(Collectors.summingLong(Duration::toMillis)));
+	public static long sum(List<Long> values) {
+		if (!values.contains(INDEFINITE)) {
+			return values.stream().collect(Collectors.summingLong(Long::longValue));
 		}
 		return INDEFINITE;
 	}

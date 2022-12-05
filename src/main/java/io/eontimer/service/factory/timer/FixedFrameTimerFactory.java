@@ -1,6 +1,5 @@
 package io.eontimer.service.factory.timer;
 
-import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.eontimer.service.CalibrationService;
-import io.eontimer.util.TimeUtil;
 
 @Service
 public class FixedFrameTimerFactory {
@@ -16,7 +14,7 @@ public class FixedFrameTimerFactory {
 	@Autowired
 	private CalibrationService calibrationService;
 
-	public List<Duration> createStages(long preTimer, long targetFrame, long calibration) {
+	public List<Long> createStages(long preTimer, long targetFrame, long calibration) {
 		return Arrays.asList(stage1(preTimer), stage2(targetFrame, calibration));
 	}
 
@@ -24,12 +22,12 @@ public class FixedFrameTimerFactory {
 		return calibrationService.toMillis(targetFrame - frameHit);
 	}
 
-	private Duration stage1(Long preTimer) {
-		return TimeUtil.milliseconds(preTimer);
+	private long stage1(long preTimer) {
+		return preTimer;
 	}
 
-	private Duration stage2(long targetFrame, long calibration) {
-		return TimeUtil.milliseconds(calibrationService.toMillis(targetFrame) + calibration);
+	private long stage2(long targetFrame, long calibration) {
+		return calibrationService.toMillis(targetFrame) + calibration;
 	}
 
 }

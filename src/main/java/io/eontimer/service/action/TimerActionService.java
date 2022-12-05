@@ -1,6 +1,5 @@
 package io.eontimer.service.action;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,7 +27,7 @@ public class TimerActionService implements InitializingBean {
 
 	private SimpleBooleanProperty activeProperty = new SimpleBooleanProperty(false);
 
-	private List<Duration> actionInterval = new ArrayList<>();
+	private List<Long> actionInterval = new ArrayList<>();
 
 	public void invokeAction() {
 		if (ActionMode.AUDIO.equals(timerActionSettingsModel.getMode()) || ActionMode.AV.equals(timerActionSettingsModel.getMode())) {
@@ -60,8 +59,8 @@ public class TimerActionService implements InitializingBean {
 
 	}
 
-	private List<Duration> createActionInterval(int count, int interval) {
-		return IntStream.range(0, count - 1).boxed().map(it -> (count - 1) - it - 1).map(it -> it * interval).map(it -> (long) it).map(Duration::ofMillis).collect(Collectors.toList());
+	private List<Long> createActionInterval(int count, int interval) {
+		return IntStream.range(0, count).boxed().map(it -> count - it - 1).map(it -> it * interval).map(it -> (long) it).collect(Collectors.toList());
 	}
 
 	public SimpleBooleanProperty getActiveProperty() {
@@ -76,7 +75,7 @@ public class TimerActionService implements InitializingBean {
 		this.activeProperty.set(active);
 	}
 
-	public List<Duration> getActionInterval() {
+	public List<Long> getActionInterval() {
 		return actionInterval;
 	}
 

@@ -6,8 +6,8 @@ public class TimerSettingsConstants {
 
 	public static final boolean DEFAULT_PRECISION_CALIBRATION_MODE = false;
 
-	public static final Long DEFAULT_REFRESH_INTERVAL = 8L;
+	public static final long DEFAULT_REFRESH_INTERVAL = 8L;
 
-	public static final Long MINIMUM_LENGTH = 14000L;
+	public static final long MINIMUM_LENGTH = 14000L;
 
 }

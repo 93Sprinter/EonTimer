@@ -1,48 +1,47 @@
 package io.eontimer.model;
 
-import java.time.Duration;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import io.eontimer.util.TimeUtil;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleLongProperty;
 
 @Component
 public class TimerState {
 
-	private final ObjectProperty<Duration> totalTimeProperty = new SimpleObjectProperty<>(Duration.ZERO);
+	private final LongProperty totalTimeProperty = new SimpleLongProperty(0L);
 
-	private final ObjectProperty<Duration> totalElapsedProperty = new SimpleObjectProperty<>(Duration.ZERO);
+	private final LongProperty totalElapsedProperty = new SimpleLongProperty(0L);
 
-	private final ObjectProperty<Duration> currentStageProperty = new SimpleObjectProperty<>(Duration.ZERO);
+	private final LongProperty currentStageProperty = new SimpleLongProperty(0L);
 
-	private final ObjectProperty<Duration> nextStageProperty = new SimpleObjectProperty<>(Duration.ZERO);
+	private final LongProperty nextStageProperty = new SimpleLongProperty(0L);
 
-	private final ObjectProperty<Duration> currentRemainingProperty = new SimpleObjectProperty<>(Duration.ZERO);
+	private final LongProperty currentRemainingProperty = new SimpleLongProperty(0L);
 
 	private final BooleanProperty runningProperty = new SimpleBooleanProperty(false);
 
-	public ObjectProperty<Duration> getTotalTimeProperty() {
+	public LongProperty getTotalTimeProperty() {
 		return totalTimeProperty;
 	}
 
-	public ObjectProperty<Duration> getTotalElapsedProperty() {
+	public LongProperty getTotalElapsedProperty() {
 		return totalElapsedProperty;
 	}
 
-	public ObjectProperty<Duration> getCurrentStageProperty() {
+	public LongProperty getCurrentStageProperty() {
 		return currentStageProperty;
 	}
 
-	public ObjectProperty<Duration> getNextStageProperty() {
+	public LongProperty getNextStageProperty() {
 		return nextStageProperty;
 	}
 
-	public ObjectProperty<Duration> getCurrentRemainingProperty() {
+	public LongProperty getCurrentRemainingProperty() {
 		return currentRemainingProperty;
 	}
 
@@ -50,43 +49,43 @@ public class TimerState {
 		return runningProperty;
 	}
 
-	public Duration getTotalTime() {
+	public long getTotalTime() {
 		return totalTimeProperty.get();
 	}
 
-	public void setTotalTime(Duration totalTime) {
+	public void setTotalTime(long totalTime) {
 		totalTimeProperty.set(totalTime);
 	}
 
-	public Duration getTotalElapsed() {
+	public long getTotalElapsed() {
 		return totalElapsedProperty.get();
 	}
 
-	public void setTotalElapsed(Duration totalElapsed) {
+	public void setTotalElapsed(long totalElapsed) {
 		totalElapsedProperty.set(totalElapsed);
 	}
 
-	public Duration getCurrentStage() {
+	public long getCurrentStage() {
 		return currentStageProperty.get();
 	}
 
-	public void setCurrentStage(Duration currentStage) {
+	public void setCurrentStage(long currentStage) {
 		currentStageProperty.set(currentStage);
 	}
 
-	public Duration getNextStage() {
+	public long getNextStage() {
 		return nextStageProperty.get();
 	}
 
-	public void setNextStage(Duration nextStage) {
+	public void setNextStage(long nextStage) {
 		nextStageProperty.set(nextStage);
 	}
 
-	public Duration getCurrentRemaining() {
+	public long getCurrentRemaining() {
 		return currentRemainingProperty.get();
 	}
 
-	public void setCurrentRemaining(Duration currentRemaining) {
+	public void setCurrentRemaining(long currentRemaining) {
 		currentRemainingProperty.set(currentRemaining);
 	}
 
@@ -98,10 +97,10 @@ public class TimerState {
 		runningProperty.set(running);
 	}
 
-	public void update(List<Duration> stages) {
+	public void update(List<Long> stages) {
 		setCurrentStage(TimeUtil.getStage(stages, 0));
 		if (TimeUtil.isIndefinite(getCurrentStage())) {
-			setCurrentStage(Duration.ZERO);
+			setCurrentStage(0L);
 		} else {
 			setCurrentRemaining(getCurrentStage());
 		}

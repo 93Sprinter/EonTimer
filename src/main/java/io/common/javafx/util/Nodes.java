@@ -2,7 +2,7 @@ package io.common.javafx.util;
 
 import org.springframework.util.Assert;
 
-import io.reactivex.rxjavafx.observables.JavaFxObservable;
+import io.eontimer.util.ReactorFxUtil;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
@@ -22,9 +22,7 @@ public final class Nodes {
 	public static void autoresizeContainerOn(Node node, ObservableValue<?> observableValue) {
 		Assert.notNull(node, "node");
 		Assert.notNull(observableValue, "observableValue");
-		JavaFxObservable.changesOf(observableValue)
-				.doOnNext(change -> node.autosize())
-				.subscribe();
+		ReactorFxUtil.asFlux(observableValue).doOnNext(change -> node.autosize()).subscribe();
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

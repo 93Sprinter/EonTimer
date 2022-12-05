@@ -1,6 +1,5 @@
 package io.eontimer.service.factory;
 
-import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class Gen4TimerFactory implements TimerFactory {
 	private CalibrationService calibrationService;
 
 	@Override
-	public List<Duration> getStages() {
+	public List<Long> getStages() {
 		return delayTimerFactory.createStages(
 				gen4TimerModel.getTargetSecond(),
 				gen4TimerModel.getTargetDelay(),

@@ -6,9 +6,11 @@ import org.springframework.context.ConfigurableApplicationContext;
 import io.eontimer.config.AppProperties;
 import io.eontimer.controller.EonTimerPane;
 import io.eontimer.model.resource.CssResource;
+import io.eontimer.model.resource.ImageResource;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
 
@@ -28,6 +30,7 @@ public class JavaFxApplication extends Application {
 		stage.setTitle(applicationContext.getBean(AppProperties.class).getFullApplicationName());
 		stage.setScene(new Scene(fxWeaver.loadView(EonTimerPane.class)));
 		stage.getScene().getStylesheets().add(CssResource.MAIN.getPath());
+		stage.getIcons().add(new Image(ImageResource.APP_ICON.getPath()));
 		stage.setWidth(610.0);
 		stage.setHeight(470.0);
 		stage.setResizable(false);

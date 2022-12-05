@@ -8,10 +8,8 @@ import org.springframework.stereotype.Component;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import io.eontimer.model.Stage;
 import io.eontimer.model.TimerState;
 import io.eontimer.model.timer.CustomTimerModel;
-import io.eontimer.util.StageStringConverter;
 import io.eontimer.util.javafx.spinner.LongValueFactory;
 import io.eontimer.util.javafx.spinner.SpinnerUtil;
 import javafx.fxml.FXML;
@@ -22,6 +20,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.KeyCode;
+import javafx.util.converter.LongStringConverter;
 
 @Component
 public class CustomTimerPane implements Initializable {
@@ -33,7 +32,7 @@ public class CustomTimerPane implements Initializable {
 	private TimerState timerState;
 
 	@FXML
-	private ListView<Stage> list;
+	private ListView<Long> list;
 
 	@FXML
 	private Spinner<Long> valueField;
@@ -48,14 +47,14 @@ public class CustomTimerPane implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		list.setItems(model.getStages());
 		list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		list.setCellFactory(TextFieldListCell.forListView(new StageStringConverter()));
+		list.setCellFactory(TextFieldListCell.forListView(new LongStringConverter()));
 		list.disableProperty().bind(timerState.getRunningProperty());
 
 		valueField.setValueFactory(new LongValueFactory(0L));
 		valueField.disableProperty().bind(timerState.getRunningProperty());
 		valueField.setOnKeyPressed((event) -> {
 			if (event.getCode() == KeyCode.ENTER) {
-				model.getStages().add(new Stage(valueField.getValue()));
+				model.getStages().add(valueField.getValue());
 				valueField.getEditor().setText("");
 			}
 		});
@@ -65,7 +64,7 @@ public class CustomTimerPane implements Initializable {
 		valueAddBtn.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.PLUS));
 		valueAddBtn.disableProperty().bind(valueField.getEditor().textProperty().isEmpty().or(timerState.getRunningProperty()));
 		valueAddBtn.setOnAction((event) -> {
-			model.getStages().add(new Stage(valueField.getValue()));
+			model.getStages().add(valueField.getValue());
 			valueField.getEditor().setText("");
 		});
 

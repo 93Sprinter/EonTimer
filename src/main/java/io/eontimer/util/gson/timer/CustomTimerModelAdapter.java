@@ -2,30 +2,24 @@ package io.eontimer.util.gson.timer;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
-import io.eontimer.model.Stage;
 import io.eontimer.model.timer.CustomTimerModel;
-import io.eontimer.util.gson.TimerStageModelAdapter;
 
 @Component
 public class CustomTimerModelAdapter extends TypeAdapter<CustomTimerModel> {
-
-	@Autowired
-	private TimerStageModelAdapter timerStageModelAdapter;
 
 	@Override
 	public void write(JsonWriter out, CustomTimerModel value) throws IOException {
 		out.beginObject();
 		out.name("stages");
 		out.beginArray();
-		for (Stage it : value.getStages()) {
-			timerStageModelAdapter.write(out, it);
+		for (long it : value.getStages()) {
+			out.value(it);
 		}
 		out.endArray();
 		out.endObject();
@@ -40,7 +34,7 @@ public class CustomTimerModelAdapter extends TypeAdapter<CustomTimerModel> {
 			case "stages":
 				in.beginArray();
 				while (in.hasNext()) {
-					model.getStages().add(timerStageModelAdapter.read(in));
+					model.getStages().add(in.nextLong());
 				}
 				in.endArray();
 				break;

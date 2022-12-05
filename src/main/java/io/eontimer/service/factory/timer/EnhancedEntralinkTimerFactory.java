@@ -1,6 +1,5 @@
 package io.eontimer.service.factory.timer;
 
-import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.eontimer.model.timer.Gen5TimerConstants;
-import io.eontimer.util.TimeUtil;
 
 @Service
 public class EnhancedEntralinkTimerFactory {
@@ -16,8 +14,8 @@ public class EnhancedEntralinkTimerFactory {
 	@Autowired
 	private EntralinkTimerFactory entralinkTimer;
 
-	public List<Duration> createStages(long targetSecond, long targetDelay, long targetAdvances, long calibration, long entralinkCalibration, long frameCalibration) {
-		final List<Duration> stages = entralinkTimer.createStages(targetSecond, targetDelay, calibration, entralinkCalibration);
+	public List<Long> createStages(long targetSecond, long targetDelay, long targetAdvances, long calibration, long entralinkCalibration, long frameCalibration) {
+		final List<Long> stages = entralinkTimer.createStages(targetSecond, targetDelay, calibration, entralinkCalibration);
 		return Arrays.asList(stages.get(0), stages.get(1), stage3(targetAdvances, frameCalibration));
 	}
 
@@ -30,8 +28,8 @@ public class EnhancedEntralinkTimerFactory {
 		// (Gen5TimerConstants.ENTRALINK_FRAME_RATE + (npcCount * npcRate))) * 1000
 	}
 
-	private Duration stage3(long targetAdvances, long frameCalibration) {
-		return TimeUtil.milliseconds(Math.round(targetAdvances / Gen5TimerConstants.ENTRALINK_FRAME_RATE) * 1000 + frameCalibration);
+	private long stage3(long targetAdvances, long frameCalibration) {
+		return Math.round(targetAdvances / Gen5TimerConstants.ENTRALINK_FRAME_RATE) * 1000 + frameCalibration;
 	}
 
 }

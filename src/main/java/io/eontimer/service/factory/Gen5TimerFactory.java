@@ -1,6 +1,5 @@
 package io.eontimer.service.factory;
 
-import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,7 +42,7 @@ public class Gen5TimerFactory implements TimerFactory {
 	private CalibrationService calibrationService;
 
 	@Override
-	public List<Duration> getStages() {
+	public List<Long> getStages() {
 		switch (gen5TimerModel.getMode()) {
 		case STANDARD:
 			return secondTimerFactory.createStages(gen5TimerModel.getTargetSecond(), calibrationService.calibrateToMillis(gen5TimerModel.getCalibration()));

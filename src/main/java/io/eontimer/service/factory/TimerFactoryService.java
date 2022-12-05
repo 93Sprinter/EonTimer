@@ -1,6 +1,5 @@
 package io.eontimer.service.factory;
 
-import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,7 +38,7 @@ public class TimerFactoryService {
 	@Autowired
 	private TimerSettingsModel timerSettings;
 
-	public List<Duration> getStages() {
+	public List<Long> getStages() {
 		return getTimerFactory().getStages();
 	}
 
