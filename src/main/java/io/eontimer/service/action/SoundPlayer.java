@@ -11,7 +11,6 @@ import io.eontimer.model.resource.SoundResource;
 import io.eontimer.model.settings.ActionSettingsModel;
 import io.eontimer.util.ReactorFxUtil;
 import io.eontimer.util.TaskUtil;
-import javafx.concurrent.Task;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -24,14 +23,22 @@ public class SoundPlayer {
 
 	private MediaPlayer mediaPlayer;
 
-	public void play() {
+	private Runnable playCmd = () -> {
 		mediaPlayer.setStartTime(Duration.ZERO);
 		mediaPlayer.seek(Duration.ZERO);
 		mediaPlayer.play();
+	};
+
+	private Runnable stopCmd = () -> {
+		mediaPlayer.stop();
+	};
+
+	public void play() {
+		TaskUtil.run(playCmd);
 	}
 
 	public void stop() {
-		mediaPlayer.stop();
+		TaskUtil.run(stopCmd);
 	}
 
 	@PostConstruct
@@ -39,14 +46,8 @@ public class SoundPlayer {
 		ReactorFxUtil.asFlux(actionSettings.getSoundProperty()).map(SoundResource::get).map(r -> createMediaPlayer(r)).subscribe(m -> {
 			mediaPlayer = m;
 		});
-		TaskUtil.run(new Task<String>() {
-
-			@Override
-			protected String call() throws Exception {
-				createMediaPlayer(SoundResource.SILENT.get()).play();
-				return null;
-			}
-
+		TaskUtil.run(() -> {
+			createMediaPlayer(SoundResource.SILENT.get()).play();
 		});
 	}
 

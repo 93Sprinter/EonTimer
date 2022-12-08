@@ -10,10 +10,14 @@ public class TaskUtil {
 	private static ExecutorService exec;
 
 	public static void init() {
-		exec = Executors.newFixedThreadPool(1);
+		exec = Executors.newFixedThreadPool(3);
 	}
 
 	public static void run(Task<?> command) {
+		exec.execute(command);
+	}
+
+	public static void run(Runnable command) {
 		exec.execute(command);
 	}
 
