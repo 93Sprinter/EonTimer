@@ -7,6 +7,7 @@
   "main": "main.js",
   "author": "93Sprinter",
   "build": {
+    "appId": "EonTimer",
     "productName": "EonTimer",
     "directories": {
       "buildResources": "public"
@@ -19,7 +20,10 @@
     "win": {},
     "linux": {
       "target": "AppImage",
-      "category": "Game"
+      "category": "Game",
+      "desktop": {
+        "StartupWMClass": "eon-timer-svelte"
+      }
     },
     "mac": {},
     "appImage": {}
