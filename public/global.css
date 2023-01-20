@@ -1,0 +1,51 @@
+@font-face {
+  font-family: Roboto;
+  src: url("./fonts/Roboto-Regular.ttf");
+}
+
+:root {
+  --theme-text-color: #000000;
+  --theme-panel-background: #ffffff;
+  --theme-panel-transparent-background: #ffffff7f;
+
+  --theme-background-image: url("./img/default_background_image.png");
+}
+
+html,
+body {
+  position: relative;
+  font-family: Roboto;
+}
+
+body {
+  background-image: var(--theme-background-image);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.fs-085 {
+  font-size: calc(1rem * 0.85) !important;
+}
+
+.overflow-y-auto {
+  overflow-y: auto !important;
+}
+
+.overflow-x-hidden {
+  overflow-x: hidden !important;
+}
+
+.min-h-0 {
+  min-height: 0;
+}
+
+.nav-link {
+  --bs-bg-opacity: 0.5;
+  background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.nav-link.active,
+.nav-link:hover {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
+}

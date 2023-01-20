@@ -1,0 +1,5 @@
+{
+    "editor.formatOnSave": true,
+    "svelte.plugin.svelte.format.config.printWidth": 250,
+    "prettier.printWidth": 250
+}
