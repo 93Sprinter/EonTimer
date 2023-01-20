@@ -7,7 +7,7 @@
   "main": "main.js",
   "author": "93Sprinter",
   "build": {
-    "icon": "public/favicon.png",
+    "appId": "EonTimer",
     "productName": "EonTimer",
     "files": [
       "public/**/*",
@@ -15,8 +15,12 @@
       "preload.js"
     ],
     "win": {},
-    "linux": {},
-    "mac": {}
+    "linux": {
+      "target": "AppImage",
+      "category": "Game"
+    },
+    "mac": {},
+    "appImage": {}
   },
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs",
