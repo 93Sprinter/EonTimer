@@ -5,11 +5,6 @@ const handheld = {
   "3DS": "3DS",
 };
 
-// const fps = {
-//   GBA: 59.7271,
-//   NDS: 59.8261,
-// };
-
 const fps = {
   GBA: 59.7275005696058,
   "NDS-GBA": 59.6555,
