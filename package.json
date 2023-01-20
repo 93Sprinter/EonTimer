@@ -5,7 +5,7 @@
   "private": true,
   "license": "MIT",
   "main": "main.js",
-  "author": "Sprinter",
+  "author": "93Sprinter",
   "build": {
     "icon": "public/favicon.png",
     "productName": "EonTimer",
