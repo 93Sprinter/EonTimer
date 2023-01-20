@@ -7,7 +7,6 @@
   "main": "main.js",
   "author": "93Sprinter",
   "build": {
-    "appId": "EonTimer",
     "productName": "EonTimer",
     "directories": {
       "buildResources": "public"
