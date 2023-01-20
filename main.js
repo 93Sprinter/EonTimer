@@ -31,7 +31,7 @@ function createWindow() {
       // enableRemoteModule: true,
       // contextIsolation: false
     },
-    icon: path.join(__dirname, "public/favicon.png"),
+    icon: path.join(__dirname, "public/icons/icon_256x256.png"),
     show: false,
   });
 

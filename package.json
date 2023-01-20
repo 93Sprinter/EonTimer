@@ -9,6 +9,9 @@
   "build": {
     "appId": "EonTimer",
     "productName": "EonTimer",
+    "directories": {
+      "buildResources": "public"
+    },
     "files": [
       "public/**/*",
       "main.js",
